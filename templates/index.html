@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Market Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Market Data Lookup</h1>
+        <form method="POST">
+            <input type="text" name="symbol" placeholder="Enter stock symbol (e.g., AAPL)" required>
+            <button type="submit">Get Data</button>
+        </form>
+        
+        {% if market_data %}
+            <h2>Results for {{ symbol }}</h2>
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Open</th>
+                    <th>Close</th>
+                    <th>High</th>
+                    <th>Low</th>
+                </tr>
+                {% for data in market_data %}
+                <tr>
+                    <td>{{ data['date'] }}</td>
+                    <td>{{ data['open'] }}</td>
+                    <td>{{ data['close'] }}</td>
+                    <td>{{ data['high'] }}</td>
+                    <td>{{ data['low'] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+</body>
+</html>
